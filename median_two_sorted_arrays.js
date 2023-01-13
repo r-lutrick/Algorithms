@@ -37,7 +37,7 @@ const findMedianSortedArrays = (nums1, nums2) => {
     }
 
     nums1 = nums1.sort(function (a, b) { return a - b })
-    console.log(nums1)
+    // console.log(nums1)
     if (m % 2 == 0) {
         val1 = nums1[Math.floor(m / 2)]
         val2 = nums1[Math.floor(m / 2) - 1]
