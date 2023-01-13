@@ -32,7 +32,9 @@ function maskify(cc) {
         return cc
     }
 
-    // best practice
+    // best practices
     // return cc.slice(0, -4).replace(/./g, '#') + cc.slice(-4);
+    // '#'.repeat(Math.max(0, cc.length - 4)) + cc.substr(-4);
+    // return cc.replace(/.(?=....)/g, '#');
 }
 console.log(maskify('4556364607935616'))
