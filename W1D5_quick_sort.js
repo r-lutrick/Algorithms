@@ -29,7 +29,7 @@ toBeSorted = [13, 17, 10, 2, 7, 4, 8, 21, 6, -1]
 // }
 
 const quickSort = (arr) => {
-    // Logic
+    // Base Case
     if (arr.length <= 1) { return arr }
     // Variables
     let i = 0, pivot = arr[arr.length - 1]
