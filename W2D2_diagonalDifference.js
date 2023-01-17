@@ -42,7 +42,10 @@ const expected2 = 0;
  *    bottom right diagonal and the top right to bottom left diagonal.
  */
 function diagonalDifference(sqrMatrix) {
-    // Version 1
+    /* 
+    Version 1
+        Tim's first approach and brute force
+    */
     // let forwardDiag = 0
     // let backwardDiag = 0
     // for (let i = 0; i < sqrMatrix.length; i++) {
@@ -51,23 +54,41 @@ function diagonalDifference(sqrMatrix) {
     // }
     // return Math.abs(forwardDiag - backwardDiag)
 
-    // Version 2
+
+    /* 
+    Version 2
+        Tim noticed we were able to subtract values at each new array
+        we used just one sum to track those differences
+    */
     // let sum = 0
     // for (let i = 0; i < array.length; i++) {
     //     sum += num[i] - num[num.length - 1 - i]
     // }
     // return Math.abs(sum)
 
-    // Version 3
+    /* 
+    Version 3
+        I was able to use Tim's single array difference to utilize JavaScript's map() funciton
+        this allowed us to add to sum during each iteration.
+    */
     // var sum = 0; 
     // sqrMatrix.map((num, i) => { sum += num[i] - num[num.length - 1 - i] }); 
     // return Math.abs(sum)
 
-    // Version 4
+    /* 
+    Version 4
+        Following all previous steps, assuming the matrix has at least 1 value, Tim was able to return an
+        absolute value from the first item in the first array before updating that first value to be used as a difference
+        for the final position.
+    */
+    //              assume 1x1 mtrx - (add the difference of each array to sqrMatrix[0][0] while creating an array) [get last item in array]
     return Math.abs(sqrMatrix[0][0] - sqrMatrix.map((arr, i) => sqrMatrix[0][0] += arr[i] - arr[arr.length - 1 - i])[sqrMatrix.length - 1]);
 }
 
-// Version 5
+/* 
+    Version 5
+        Version 4 as an arrow function creating a true one liner for finding a diagonal difference of a matrix
+*/
 const diagonalDifference = sqrMatrix => Math.abs(sqrMatrix[0][0] - sqrMatrix.map((arr, i) => sqrMatrix[0][0] += arr[i] - arr[arr.length - 1 - i])[sqrMatrix.length - 1]);
 
 console.log(diagonalDifference(squareMatrix1));
