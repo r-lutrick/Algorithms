@@ -59,14 +59,20 @@ function diagonalDifference(sqrMatrix) {
     // return Math.abs(sum)
 
     // Version 3
-    var sum = 0
-    sqrMatrix.map((num, i) => { sum += num[i] - num[num.length - 1 - i] })
-    return Math.abs(sum)
+    // var sum = 0; 
+    // sqrMatrix.map((num, i) => { sum += num[i] - num[num.length - 1 - i] }); 
+    // return Math.abs(sum)
+
+    // Version 4
+    return Math.abs(sqrMatrix[0][0] - sqrMatrix.map((arr, i) => sqrMatrix[0][0] += arr[i] - arr[arr.length - 1 - i])[sqrMatrix.length - 1]);
 }
+
+// Version 5
+const diagonalDifference = sqrMatrix => Math.abs(sqrMatrix[0][0] - sqrMatrix.map((arr, i) => sqrMatrix[0][0] += arr[i] - arr[arr.length - 1 - i])[sqrMatrix.length - 1]);
+
 console.log(diagonalDifference(squareMatrix1));
 console.log(diagonalDifference(squareMatrix2));
 
 /*****************************************************************************/
-
 
 module.exports = { diagonalDifference };
