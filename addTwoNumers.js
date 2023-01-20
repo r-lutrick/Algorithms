@@ -19,11 +19,11 @@ The number of nodes in each linked list is in the range [1, 100].
 It is guaranteed that the list represents a number that does not have leading zeros.
 */
 /**
- * Definition for singly-linked list.
- * function ListNode(val, next) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
- * }
+  * Definition for singly-linked list.
+  * function ListNode(val, next) {
+  *     this.val = (val===undefined ? 0 : val)
+  *     this.next = (next===undefined ? null : next)
+  * }
 */
 /**
  * @param {ListNode} l1
@@ -31,27 +31,43 @@ It is guaranteed that the list represents a number that does not have leading ze
  * @return {ListNode}
  */
 
-// l1 = [2, 4, 3]
-// l2 = [5, 6, 4]
-l1 = [9, 9, 9, 9, 9, 9, 9]
-l2 = [9, 9, 9, 9]
-var addTwoNumbers = function (l1, l2) {
-    output = []
-    let i = 0
-    let j = 0
-    console.log(i, j)
-    while (i < l1.length || j < l2.length) {
+// l1 = [9, 4, 3], l2 = [9, 6, 4]
+// l1 = [0], l2 = [0]
+l1 = [9, 9, 9, 9, 9, 9, 9], l2 = [9, 9, 9, 9]
 
-        let splitTotal = (l1[i] + l2[j]).toString().split('')
-        console.log(splitTotal)
-        let carry = splitTotal[0]
-        // output.push(splitTotal[1])
-        // console.log(carry)
-        // console.log(l1[i])
-        // l1[i] += carry
-        i += 1
-        j += 1
+var addTwoNumbers = function (l1, l2) {
+    const output = []
+    let i = 0, j = 0, carryOver = 0
+    let excess = l1.length > l2.length ? l1 : l2
+    while (i < l1.length && j < l2.length) {
+
+        let val = l1[i] + l2[j] + carryOver
+        if (val < 10) {
+            output.push(val)
+            carryOver = 0
+        } else {
+            output.push(val % 10)
+            carryOver = 1
+        }
+        i++, j++
     }
+    
+    excess = excess.slice(i)
+    for (let e = 0; e < excess.length; e++) {
+        let val = excess[e] + carryOver
+        if (val < 10) {
+            output.push(val)
+            carryOver = 0
+        } else {
+            output.push(val % 10)
+            carryOver = 1
+        }
+    }
+
+    if (carryOver === 1) {
+        output.push(carryOver)
+    }
+
     return output
 };
 
