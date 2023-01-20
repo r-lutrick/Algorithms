@@ -38,28 +38,34 @@ l1 = [9, 9, 9, 9, 9, 9, 9], l2 = [9, 9, 9, 9]
 var addTwoNumbers = function (l1, l2) {
     const output = []
     let i = 0, j = 0, carryOver = 0
-    let excess = l1.length > l2.length ? l1 : l2
-    while (i < l1.length && j < l2.length) {
+    // excess    condition(l1 > l2)  :false(do the opposite)
+    let excess = l1.length > l2.length ?
+        // true(slice l1 at index of l2's length) 
+        l1.slice(l2.length) :
+        // :false(do the opposite)
+        l2.slice(l1.length)
 
-        let val = l1[i] + l2[j] + carryOver
-        if (val < 10) {
-            output.push(val)
-            carryOver = 0
-        } else {
-            output.push(val % 10)
-            carryOver = 1
-        }
+    // Loop over both array at the same time
+    while (i < l1.length && j < l2.length) {
         i++, j++
+        // total will never exceed 18 because 9 + 9 = 18
+        let total = l1[i - 1] + l2[j - 1] + carryOver
+        if (total < 10) {
+            output.push(total)
+            carryOver = 0
+            continue
+        }
+        output.push(total % 10)
+        carryOver = 1
     }
-    
-    excess = excess.slice(i)
+
     for (let e = 0; e < excess.length; e++) {
-        let val = excess[e] + carryOver
-        if (val < 10) {
-            output.push(val)
+        let total = excess[e] + carryOver
+        if (total < 10) {
+            output.push(total)
             carryOver = 0
         } else {
-            output.push(val % 10)
+            output.push(total % 10)
             carryOver = 1
         }
     }
