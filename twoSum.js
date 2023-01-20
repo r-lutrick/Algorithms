@@ -70,9 +70,12 @@ var twoSum = function (nums, target) {
     // Hash table one pass
     hashmap = {}
     for (let i = 0; i < nums.length; i++) {
+        // set complement using the difference of target and current num
         complement = target - nums[i];
+        // first through is never true
+        // check for the complement
         if (complement in hashmap) {
-            return [i, hashmap[complement]]
+            return [hashmap[complement], i]
         }
         hashmap[nums[i]] = i
     }
