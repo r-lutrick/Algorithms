@@ -48,18 +48,22 @@ const expected5 = false;
  * @returns {boolean}
  */
 function canBuildS1FromS2(neededChars, availableChars) {
-    if (availableChars < neededChars) {return false}
+    if (availableChars < neededChars) { return false }
+
     nChars = {}
     aChars = {}
+
     neededChars.toLowerCase().split('').map((ltr) => { ltr in nChars ? nChars[ltr] += 1 : nChars[ltr] = 1 })
     availableChars.toLowerCase().split('').map((ltr) => { ltr in aChars ? aChars[ltr] += 1 : aChars[ltr] = 1 })
-    for (key in nChars){
-        if (!(key in aChars)){
+
+    for (key in nChars) {
+        if (!(key in aChars)) {
             return false;
-        } else if (nChars[key] > aChars[key]){
+        } else if (nChars[key] > aChars[key]) {
             return false;
         }
     }
+
     return true
 }
 
