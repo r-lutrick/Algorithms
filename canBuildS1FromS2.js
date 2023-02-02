@@ -51,8 +51,8 @@ function canBuildS1FromS2(neededChars, availableChars) {
     if (availableChars < neededChars) {return false}
     nChars = {}
     aChars = {}
-    neededChars.split('').map((ltr) => { ltr in nChars ? nChars[ltr.toLowerCase()] += 1 : nChars[ltr.toLowerCase()] = 1 })
-    availableChars.split('').map((ltr) => { ltr in aChars ? aChars[ltr.toLowerCase()] += 1 : aChars[ltr.toLowerCase()] = 1 })
+    neededChars.toLowerCase().split('').map((ltr) => { ltr in nChars ? nChars[ltr] += 1 : nChars[ltr] = 1 })
+    availableChars.toLowerCase().split('').map((ltr) => { ltr in aChars ? aChars[ltr] += 1 : aChars[ltr] = 1 })
     for (key in nChars){
         if (!(key in aChars)){
             return false;
