@@ -99,12 +99,10 @@ class SinglyLinkedList {
 
     getNodes() {
         const output = []
-        i = 1
         let current = this.head
         while (current.next !== null) {
             output.push({ node: { data: current.data } })
             current = current.next
-            i++
         }
         output.push({ node: { data: current.data } })
         return output
