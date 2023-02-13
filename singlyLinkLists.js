@@ -199,24 +199,21 @@ class SinglyLinkedList {
     }
 
     /**
-* Retrieves the data of the second to last node in this list.
-* - Time: O(?).
-* - Space: O(?).
-* @returns {any} The data of the second to last node or null if there is no
-*    second to last node.
-*/
+    * Retrieves the data of the second to last node in this list.
+    * - Time: O(?).
+    * - Space: O(?).
+    * @returns {any} The data of the second to last node or null if there is no
+    *    second to last node.
+    */
     secondToLast() {
-        if (this.isEmpty()){
+        if (this.isEmpty() || this.head.next == null) {
             return null;
-        } else if (this.head.next == null) {
-            return this.head
-        } else {
-            pointer = this.head;
-            while (pointer.next.next !== null){
-                pointer = pointer.next;
-            }
-            return pointer.next;
         }
+        let pointer = this.head;
+        while (pointer.next.next !== null) {
+            pointer = pointer.next;
+        }
+        return pointer.data;
     }
 
 
@@ -229,25 +226,28 @@ class SinglyLinkedList {
      * @returns {boolean} Indicates if a node was removed or not.
      */
     removeVal(val) {
-        //find if the value exists in the SLL
-
-
-        //remove and return true
-
-
-        //if not not found, return false
+        let output = false;
+        let pointer = this.head;
+        while (pointer.next) {
+            // Removes head as long as its the value (dont move pointer)
+            if (this.head.data === val) {
+                this.head = this.head.next;
+                output = true
+                // update pointer's next to the 2nd node away (dont move pointer)
+            } else if (pointer.next.data === val) {
+                pointer.next = pointer.next.next;
+                output = true
+                // nothing happened, continue through the SLL
+            } else {
+                pointer = pointer.next;
+            }
+        }
+        return output
     }
-
 }
 
-let val = new SinglyLinkedList();
-val.insertAtBack(100);
-val.insertAtBack(50);
-val.insertAtBack(25);
-val.insertAtBack(5);
-val.insertAtBack(1);
-val.removeBack();
-// console.log(val.toArr())
 
-val.seedFromArr([1, 2, 3, 4, 5, 6, 7, 7, 109283]);
-console.log(val.secondToLast());
+let val = new SinglyLinkedList();
+val.seedFromArr([1, 1, 2, 3, 4, 5, 6, 7, 7, 109283]);
+val.removeVal(109283)
+console.log(val.getNodes())
