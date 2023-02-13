@@ -198,6 +198,46 @@ class SinglyLinkedList {
         return output
     }
 
+    /**
+* Retrieves the data of the second to last node in this list.
+* - Time: O(?).
+* - Space: O(?).
+* @returns {any} The data of the second to last node or null if there is no
+*    second to last node.
+*/
+    secondToLast() {
+        if (this.isEmpty()){
+            return null;
+        } else if (this.head.next == null) {
+            return this.head
+        } else {
+            pointer = this.head;
+            while (pointer.next.next !== null){
+                pointer = pointer.next;
+            }
+            return pointer.next;
+        }
+    }
+
+
+    /**
+     * Removes the node that has the matching given val as it's data.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {any} val The value to compare to the node's data to find the
+     *    node to be removed.
+     * @returns {boolean} Indicates if a node was removed or not.
+     */
+    removeVal(val) {
+        //find if the value exists in the SLL
+
+
+        //remove and return true
+
+
+        //if not not found, return false
+    }
+
 }
 
 let val = new SinglyLinkedList();
@@ -210,4 +250,4 @@ val.removeBack();
 // console.log(val.toArr())
 
 val.seedFromArr([1, 2, 3, 4, 5, 6, 7, 7, 109283]);
-console.log(val.getNodes());
+console.log(val.secondToLast());
