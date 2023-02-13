@@ -145,12 +145,15 @@ class SinglyLinkedList {
     }
 
     getNodes() {
-        let current = this.head
-        while (current.next !== null) {
+        if (!this.isEmpty()){
+            let current = this.head
+            while (current.next !== null) {
+                console.log(current.data)
+                current = current.next
+            }
             console.log(current.data)
-            current = current.next
         }
-        console.log(current.data)
+        else {console.log("List is empty")}
         // const output = []
         // let current = this.head
         // while (current.next !== null) {
@@ -228,7 +231,7 @@ class SinglyLinkedList {
     removeVal(val) {
         let output = false;
         let pointer = this.head;
-        while (pointer.next) {
+        while (pointer.next && this.head) {
             // Removes head as long as its the value (dont move pointer)
             if (this.head.data === val) {
                 this.head = this.head.next;
@@ -248,6 +251,6 @@ class SinglyLinkedList {
 
 
 let val = new SinglyLinkedList();
-val.seedFromArr([1, 1, 2, 3, 4, 5, 6, 7, 7, 109283]);
-val.removeVal(109283)
+val.seedFromArr([1, 1, 1]);
+val.removeVal(1)
 console.log(val.getNodes())
