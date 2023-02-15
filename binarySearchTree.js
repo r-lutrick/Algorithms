@@ -73,6 +73,35 @@ class BinarySearchTree {
         }
     }
 
+    insertFromArray(newArr) {
+        for (let i = 0; i < newArr.length; i++) {
+            const newVal = newArr[i];
+            this.insert(newVal);
+        }
+    }
+
+    insertRecursive(newVal, current = this.root) {
+        // Base case: 
+        // check BST is empty
+        if (!current) {
+            this.root = new BSTNode(newVal);
+            return this;
+        }
+        // Logic:
+        // Compare .left or .right are null
+        if ((current.left || current.right) === null) {
+            let newNode = new BSTNode(newVal);
+            newVal < current.data ? current.left = newNode : current.right = newNode // Determine newNode placement
+            return this; // Traverse back up the stack
+        }
+        // Recursion:
+        else {
+            // Move pointer/current ternary
+            newVal < current.data ? current = current.left : current = current.right;
+            return this.insertRecursive(newVal, current);
+        }
+    }
+
     /**
    * Retrieves the smallest integer data from this tree.
    * @param {Node} current The node that is currently accessed from the tree as
@@ -99,6 +128,10 @@ class BinarySearchTree {
             current = current.right
         }
         return current.data
+    }
+
+    range() {
+        return !this.isEmpty() && `${this.min()} - ${this.max()}`
     }
 
     /**
@@ -146,11 +179,17 @@ class BinarySearchTree {
 
 let test = new BinarySearchTree();
 
+console.log(test.range())
+
+test.insertRecursive(1000);
 test.insert(5)
 test.insert(6)
 test.insert(4)
 test.insert(3)
 test.insert(10)
+test.insertFromArray([44, 55, 22, 33, 66])
+test.insertRecursive(99);
+test.insertRecursive(1);
 
 console.log(test.min())
 console.log(test.max())
@@ -158,3 +197,5 @@ console.log(test.max())
 console.log(test.containsRecursive(5))
 console.log(test.containsRecursive(2345))
 console.log(test.containsRecursive(10))
+
+console.log(test.range())
