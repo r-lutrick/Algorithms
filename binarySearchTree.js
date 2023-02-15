@@ -34,9 +34,7 @@ class BinarySearchTree {
     * - Space: O(?).
     * @returns {boolean} Indicates if this tree is empty.
     */
-    isEmpty() {
-        return this.root == null;
-    }
+    isEmpty() { return this.root == null; }
 
     /**
    * Inserts a new node with the given newVal in the right place to preserver
@@ -73,13 +71,26 @@ class BinarySearchTree {
         }
     }
 
+    /**
+     * Inserts an array of new nodes with the given newArr in the right place
+     * to preserver the order of this tree.
+     * @param {array} newArr The data to be added to a new node.
+     * @returns {BinarySearchTree} This tree.
+     */
     insertFromArray(newArr) {
         for (let i = 0; i < newArr.length; i++) {
             const newVal = newArr[i];
             this.insert(newVal);
         }
+        return this;
     }
 
+    /**
+   * Inserts a new node with the given newVal in the right place to preserver
+   * the order of this tree.
+   * @param {number} newVal The data to be added to a new node.
+   * @returns {BinarySearchTree} This tree.
+   */
     insertRecursive(newVal, current = this.root) {
         // Base case: 
         // check BST is empty
@@ -96,7 +107,7 @@ class BinarySearchTree {
         }
         // Recursion:
         else {
-            // Move pointer/current ternary
+            // Update pointer/current then recurse..
             newVal < current.data ? current = current.left : current = current.right;
             return this.insertRecursive(newVal, current);
         }
@@ -109,11 +120,14 @@ class BinarySearchTree {
    * @returns {number} The smallest integer from this tree.
    */
     min(current = this.root) {
-        // Traverse BST
-        while (current.left) {
-            current = current.left
+        if (!this.isEmpty()) { // Empty check
+            // Traverse BST
+            while (current.left) {
+                current = current.left
+            }
+            return current.data
         }
-        return current.data
+        return NaN;
     }
 
     /**
@@ -123,14 +137,23 @@ class BinarySearchTree {
      * @returns {number} The largest integer from this tree.
      */
     max(current = this.root) {
-        // Traverse BST
-        while (current.right) {
-            current = current.right
+        if (!this.isEmpty()) { // Empty check
+            // Traverse BST
+            while (current.right) {
+                current = current.right
+            }
+            return current.data
         }
-        return current.data
+        return NaN;
     }
 
-    range() {
+    /**
+     * Retrieves the range of smallest to largest integer data from this tree.
+     * @param {Node} current The node that is currently accessed from the tree as
+     *    the tree is being traversed.
+     * @returns {number} The smallest to largest integer from this tree.
+     */
+    range(current = this.root) {
         return !this.isEmpty() && `${this.min()} - ${this.max()}`
     }
 
@@ -150,7 +173,8 @@ class BinarySearchTree {
             if (pointer.data == searchVal) { // Found it
                 return true
             }
-            searchVal < pointer.data ? pointer = pointer.left : pointer = pointer.right // Continue...
+            // Update pointer & Continue...
+            searchVal < pointer.data ? pointer = pointer.left : pointer = pointer.right
         }
         return false;
     }
@@ -161,16 +185,19 @@ class BinarySearchTree {
      * @returns {boolean} Indicates if the searchVal was found.
      */
     containsRecursive(searchVal, current = this.root) {
-        // Base case: if we get the end and/or current is null
+        // Base case: 
+        // if we get the end and/or current is null
         if (!current) {
             return false
         }
+        // Logic:
         // Found it
-        else if (searchVal === current.data) {
+        if (searchVal === current.data) {
             return true
         }
-        // Didn't find it and the list is not empty. Traverse..
+        // Recursion:
         else {
+            // Update pointer/current then recurse..
             searchVal < current.data ? current = current.left : current = current.right
             return this.containsRecursive(searchVal, current)
         }
@@ -180,6 +207,8 @@ class BinarySearchTree {
 let test = new BinarySearchTree();
 
 console.log(test.range())
+console.log(test.min())
+console.log(test.max())
 
 test.insertRecursive(1000);
 test.insert(5)
@@ -190,9 +219,6 @@ test.insert(10)
 test.insertFromArray([44, 55, 22, 33, 66])
 test.insertRecursive(99);
 test.insertRecursive(1);
-
-console.log(test.min())
-console.log(test.max())
 
 console.log(test.containsRecursive(5))
 console.log(test.containsRecursive(2345))
