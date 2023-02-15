@@ -19,20 +19,12 @@ class BSTNode {
     }
 }
 
-
-
 /**
 * Represents an ordered tree of nodes where the data of left nodes are <= to
 * their parent and the data of nodes to the right are > their parent's data.
 */
 class BinarySearchTree {
     constructor() {
-        /**
-         * Just like the head of a linked list, this is the start of our tree which
-         * branches downward from here.
-         *
-         * @type {BSTNode|null}
-         */
         this.root = null;
     }
 
@@ -46,12 +38,9 @@ class BinarySearchTree {
         return this.root == null;
     }
 
-
     /**
    * Inserts a new node with the given newVal in the right place to preserver
    * the order of this tree.
-   * - Time: O(?).
-   * - Space: O(?).
    * @param {number} newVal The data to be added to a new node.
    * @returns {BinarySearchTree} This tree.
    */
@@ -84,11 +73,8 @@ class BinarySearchTree {
         }
     }
 
-
     /**
    * Retrieves the smallest integer data from this tree.
-   * - Time: O(?).
-   * - Space: O(?).
    * @param {Node} current The node that is currently accessed from the tree as
    *    the tree is being traversed.
    * @returns {number} The smallest integer from this tree.
@@ -102,13 +88,11 @@ class BinarySearchTree {
     }
 
     /**
-   * Retrieves the largest integer data from this tree.
-   * - Time: O(?).
-   * - Space: O(?).
-   * @param {Node} current The node that is currently accessed from the tree as
-   *    the tree is being traversed.
-   * @returns {number} The largest integer from this tree.
-   */
+     * Retrieves the largest integer data from this tree.
+     * @param {Node} current The node that is currently accessed from the tree as
+     *    the tree is being traversed.
+     * @returns {number} The largest integer from this tree.
+     */
     max(current = this.root) {
         // Traverse BST
         while (current.right) {
@@ -117,6 +101,47 @@ class BinarySearchTree {
         return current.data
     }
 
+    /**
+     * Determines if this tree contains the given searchVal.
+     * @param {number} searchVal The number to search for in the node's data.
+     * @returns {boolean} Indicates if the searchVal was found.
+     */
+    contains(searchVal) {
+        // Set root
+        if (this.isEmpty()) {
+            return false;
+        }
+        // Traverse BST
+        let pointer = this.root
+        while (pointer) {
+            if (pointer.data == searchVal) { // Found it
+                return true
+            }
+            searchVal < pointer.data ? pointer = pointer.left : pointer = pointer.right // Continue...
+        }
+        return false;
+    }
+
+    /**
+     * Determines if this tree contains the given searchVal.
+     * @param {number} searchVal The number to search for in the node's data.
+     * @returns {boolean} Indicates if the searchVal was found.
+     */
+    containsRecursive(searchVal, current = this.root) {
+        // Base case: if we get the end and/or current is null
+        if (!current) {
+            return false
+        }
+        // Found it
+        else if (searchVal === current.data) {
+            return true
+        }
+        // Didn't find it and the list is not empty. Traverse..
+        else {
+            searchVal < current.data ? current = current.left : current = current.right
+            return this.containsRecursive(searchVal, current)
+        }
+    }
 }
 
 let test = new BinarySearchTree();
@@ -125,8 +150,11 @@ test.insert(5)
 test.insert(6)
 test.insert(4)
 test.insert(3)
-test.insert(1)
+test.insert(10)
 
 console.log(test.min())
+console.log(test.max())
 
-console.log(test)
+console.log(test.containsRecursive(5))
+console.log(test.containsRecursive(2345))
+console.log(test.containsRecursive(10))
