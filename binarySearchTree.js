@@ -193,8 +193,7 @@ class BinarySearchTree {
             return false
         }
         // Logic:
-        // Found it
-        if (searchVal === current.data) {
+        if (searchVal === current.data) { // Found it
             return true
         }
         // Recursion:
