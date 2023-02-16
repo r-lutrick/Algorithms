@@ -94,23 +94,17 @@ class BinarySearchTree {
     insertRecursive(newVal, current = this.root) {
         // Base case: 
         // check BST is empty
-        if (!current) {
+        if (this.isEmpty()) {
             this.root = new BSTNode(newVal);
-            return this;
         }
-        // Logic:
-        // Compare .left or .right are null
-        if ((current.left || current.right) === null) {
-            let newNode = new BSTNode(newVal);
-            newVal < current.data ? current.left = newNode : current.right = newNode // Determine newNode placement
-            return this; // Traverse back up the stack
+        else if (newVal < current.data) { // Input is less than
+            // current.left has a value so we need to recurse, otherwise input new node since its empty
+            current.left ? this.insertRecursive(newVal, current.left) : current.left = new BSTNode(newVal);
+        } else { // Input is greater than
+            // current.right has a value so we need to recurse, otherwise input new node since its empty
+            current.right ? this.insertRecursive(newVal, current.right) : current.right = new BSTNode(newVal);
         }
-        // Recursion:
-        else {
-            // Update pointer/current then recurse..
-            newVal < current.data ? current = current.left : current = current.right;
-            return this.insertRecursive(newVal, current);
-        }
+        return this;
     }
 
     /**
@@ -211,13 +205,14 @@ let test = new BinarySearchTree();
 // console.log(test.max())
 // test.insertFromArray([44, 55, 22, 33, 66])
 
-console.log(test.insert(5))
-console.log(test.insert(6))
-console.log(test.insert(4))
-console.log(test.insert(3))
-console.log(test.insert(10))
-console.log(test.insertRecursive(1000));
-console.log(test.insertRecursive(10010));
+// console.log(test.insert(5))
+// console.log(test.insert(6))
+// console.log(test.insert(4))
+// console.log(test.insert(3))
+// console.log(test.insert(10))
+console.log(test.insertRecursive(5));
+console.log(test.insertRecursive(4));
+console.log(test.insertRecursive(6));
 console.log(test.insertRecursive(3));
 // console.log(test.range())
 // console.log(test.containsRecursive(5))
