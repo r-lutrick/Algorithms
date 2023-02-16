@@ -148,13 +148,15 @@ class BinarySearchTree {
     }
 
     /**
-     * Retrieves the range of smallest to largest integer data from this tree.
-     * @param {Node} current The node that is currently accessed from the tree as
-     *    the tree is being traversed.
-     * @returns {number} The smallest to largest integer from this tree.
+     * Calculates the range (max - min) from the given startNode.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} startNode The node to start from to calculate the range.
+     * @returns {number|null} The range of this tree or a sub tree depending on if the
+     *    startNode is the root or not.
      */
     range(current = this.root) {
-        return !this.isEmpty() && `${this.min()} - ${this.max()}`
+        return this.max() - this.min() || null;
     }
 
     /**
@@ -206,22 +208,22 @@ class BinarySearchTree {
 
 let test = new BinarySearchTree();
 
-console.log(test.range())
-console.log(test.min())
-console.log(test.max())
+// console.log(test.min())
+// console.log(test.max())
+// test.insertFromArray([44, 55, 22, 33, 66])
 
-test.insertRecursive(1000);
-test.insert(5)
-test.insert(6)
-test.insert(4)
-test.insert(3)
-test.insert(10)
-test.insertFromArray([44, 55, 22, 33, 66])
-test.insertRecursive(99);
-test.insertRecursive(1);
+console.log(test.insert(5))
+console.log(test.insert(6))
+console.log(test.insert(4))
+console.log(test.insert(3))
+console.log(test.insert(10))
+console.log(test.insertRecursive(1000));
+console.log(test.insertRecursive(10010));
+console.log(test.insertRecursive(3));
+// console.log(test.range())
+// console.log(test.containsRecursive(5))
+// console.log(test.containsRecursive(2345))
+// console.log(test.containsRecursive(10))
+// console.log(test.contains(1000))
 
-console.log(test.containsRecursive(5))
-console.log(test.containsRecursive(2345))
-console.log(test.containsRecursive(10))
-
-console.log(test.range())
+// console.log(test.range())
