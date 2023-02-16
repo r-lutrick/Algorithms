@@ -92,7 +92,6 @@ class BinarySearchTree {
    * @returns {BinarySearchTree} This tree.
    */
     insertRecursive(newVal, current = this.root) {
-        // Base case: 
         // check BST is empty
         if (this.isEmpty()) {
             this.root = new BSTNode(newVal);
@@ -197,6 +196,20 @@ class BinarySearchTree {
             return this.containsRecursive(searchVal, current)
         }
     }
+
+    // Logs this tree horizontally with the root on the left.
+    print(node = this.root, spaceCnt = 0, spaceIncr = 10) {
+        if (this.isEmpty()) {
+            return null;
+        }
+
+        spaceCnt += spaceIncr;
+        if (node.right) this.print(node.right, spaceCnt);
+
+        console.log(" ".repeat(spaceCnt < spaceIncr ? 0 : spaceCnt - spaceIncr) + `${node.data}`);
+
+        if (node.left) this.print(node.left, spaceCnt);
+    }
 }
 
 let test = new BinarySearchTree();
@@ -205,15 +218,16 @@ let test = new BinarySearchTree();
 // console.log(test.max())
 // test.insertFromArray([44, 55, 22, 33, 66])
 
-// console.log(test.insert(5))
-// console.log(test.insert(6))
-// console.log(test.insert(4))
-// console.log(test.insert(3))
-// console.log(test.insert(10))
+console.log(test.insert(8))
+console.log(test.insert(1))
+console.log(test.insert(11))
+console.log(test.insert(9))
+console.log(test.insert(10))
 console.log(test.insertRecursive(5));
 console.log(test.insertRecursive(4));
 console.log(test.insertRecursive(6));
 console.log(test.insertRecursive(3));
+test.print()
 // console.log(test.range())
 // console.log(test.containsRecursive(5))
 // console.log(test.containsRecursive(2345))
