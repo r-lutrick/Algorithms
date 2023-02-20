@@ -70,7 +70,6 @@ class BinarySearchTree {
             }
         }
     }
-
     /**
      * Inserts an array of new nodes with the given newArr in the right place
      * to preserver the order of this tree.
@@ -84,7 +83,6 @@ class BinarySearchTree {
         }
         return this;
     }
-
     /**
    * Inserts a new node with the given newVal in the right place to preserver
    * the order of this tree.
@@ -122,7 +120,6 @@ class BinarySearchTree {
         }
         return NaN;
     }
-
     /**
      * Retrieves the largest integer data from this tree.
      * @param {Node} current The node that is currently accessed from the tree as
@@ -139,7 +136,6 @@ class BinarySearchTree {
         }
         return NaN;
     }
-
     /**
      * Calculates the range (max - min) from the given startNode.
      * - Time: O(?).
@@ -173,7 +169,6 @@ class BinarySearchTree {
         }
         return false;
     }
-
     /**
      * Determines if this tree contains the given searchVal.
      * @param {number} searchVal The number to search for in the node's data.
@@ -197,37 +192,141 @@ class BinarySearchTree {
         }
     }
 
-    // Logs this tree horizontally with the root on the left.
-    print(node = this.root, spaceCnt = 0, spaceIncr = 10) {
-        if (this.isEmpty()) {
-            return null;
+    /**
+     * DFS Preorder: (CurrNode, Left, Right)
+     * Converts this BST into an array following Depth First Search preorder.
+     * Example on the fullTree var:
+     * [25, 15, 10, 4, 12, 22, 18, 24, 50, 35, 31, 44, 70, 66, 90]
+     * @param {Node} node The current node during the traversal of this tree.
+     * @param {Array<number>} vals The data that has been visited so far.
+     * @returns {Array<number>} The vals in DFS Preorder once all nodes visited.
+     */
+    toArrPreorder(node = this.root, vals = []) {
+        if (node) {
+            vals.push(node.data);
+            this.toArrPreorder(node.left, vals);
+            this.toArrPreorder(node.right, vals);
         }
-
-        spaceCnt += spaceIncr;
-        if (node.right) this.print(node.right, spaceCnt);
-
-        console.log(" ".repeat(spaceCnt < spaceIncr ? 0 : spaceCnt - spaceIncr) + `${node.data}`);
-
-        if (node.left) this.print(node.left, spaceCnt);
+        return vals
     }
+    /**
+     * DFS Inorder: (Left, CurrNode, Right)
+     * Converts this BST into an array following Depth First Search inorder.
+     * See debugger call stack to help understand the recursion.
+     * Example on the fullTree var:
+     * [4, 10, 12, 15, 18, 22, 24, 25, 31, 35, 44, 50, 66, 70, 90]
+     * @param {Node} node The current node during the traversal of this tree.
+     * @param {Array<number>} vals The data that has been visited so far.
+     * @returns {Array<number>} The vals in DFS Preorder once all nodes visited.
+     */
+    toArrInorder(node = this.root, vals = []) {
+        if (node) {
+            this.toArrInorder(node.left, vals);
+            vals.push(node.data);
+            this.toArrInorder(node.right, vals);
+        }
+        return vals
+    }
+    toArrReverseorder(node = this.root, vals = []) {
+        if (node) {
+            this.toArrReverseorder(node.right, vals);
+            vals.push(node.data);
+            this.toArrReverseorder(node.left, vals);
+        }
+        return vals
+    }
+
+    // Logs this tree horizontally with the root on the left.
+    print(node = this.root, tabCount = 0, tabIncrement = 1) {
+        if (this.isEmpty()) { return; }
+        tabCount += tabIncrement;
+        node.right && this.print(node.right, tabCount);
+        console.log("\t".repeat(tabCount < tabIncrement ? 0 : tabCount - tabIncrement) + node.data);
+        node.left && this.print(node.left, tabCount);
+    }
+
+    /**
+   * Recursively counts the total number of nodes in this tree.
+   * - Time: O(?).
+   * - Space: O(?).
+   * @param {Node} node The current node during the traversal of this tree.
+   * @returns {number} The total number of nodes.
+   */
+size(node = this.root, count = 0) {
+    if (node) {
+        count++
+        count += this.size(node.left)
+        count += this.size(node.right)
+    }
+    return count
+}
+
+    /**
+   * Calculates the height of the tree which is based on how many nodes from
+   * top to bottom (whichever side is taller).
+   * - Time: O(?).
+   * - Space: O(?).
+   * @param {Node} node The current node during traversal of this tree.
+   * @returns {number} The height of the tree.
+   */
+height(node = this.root, recursionCount = 0) {
+    // implimented
+    if (!node) {
+        return 0;
+    }
+    let maxDepth = 0;
+    let stack = [{ node: node, depth: 1 }];
+    
+    while (stack.length > 0) {
+        const { node, depth } = stack.pop();
+        maxDepth = Math.max(maxDepth, depth);
+        if (node.left) {
+            stack.push({ node: node.left, depth: depth + 1 });
+        }
+        if (node.right) {
+            stack.push({ node: node.right, depth: depth + 1 });
+        }
+    }
+    
+    return maxDepth;
+    // if (!node)
+    //     return 0;
+    // else {
+    //     /* compute the depth of each subtree */
+    //     let lDepth = this.height(node.left);
+    //     let rDepth = this.height(node.right);
+    //     /* use the larger one */
+    //     return lDepth > rDepth ? lDepth + 1 : rDepth + 1
+    // }
+}
 }
 
 let test = new BinarySearchTree();
 
 // console.log(test.min())
 // console.log(test.max())
-// test.insertFromArray([44, 55, 22, 33, 66])
 
-console.log(test.insert(8))
-console.log(test.insert(1))
-console.log(test.insert(11))
-console.log(test.insert(9))
-console.log(test.insert(10))
-console.log(test.insertRecursive(5));
-console.log(test.insertRecursive(4));
-console.log(test.insertRecursive(6));
-console.log(test.insertRecursive(3));
+test.insert(8)
+test.insert(1)
+test.insert(11)
+test.insert(9)
+test.insert(10)
+test.insertRecursive(5)
+test.insertRecursive(4)
+test.insertRecursive(6)
+test.insertRecursive(3)
+test.insertRecursive(2)
+test.insertFromArray([44, 55, 22, 33, 66, 77, 88, 99])
 test.print()
+console.log("=======================")
+// console.log(test.size())
+console.log(test.height())
+// console.log("=====Pre-Order=====")
+// console.log(test.toArrPreorder())
+// console.log("=====In-Order=====")
+// console.log(test.toArrInorder())
+// console.log("=====Post-Order=====")
+// console.log(test.toArrReverseorder())
 // console.log(test.range())
 // console.log(test.containsRecursive(5))
 // console.log(test.containsRecursive(2345))
@@ -235,3 +334,4 @@ test.print()
 // console.log(test.contains(1000))
 
 // console.log(test.range())
+
