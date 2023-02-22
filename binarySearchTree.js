@@ -252,14 +252,14 @@ class BinarySearchTree {
    * @param {Node} node The current node during the traversal of this tree.
    * @returns {number} The total number of nodes.
    */
-size(node = this.root, count = 0) {
-    if (node) {
-        count++
-        count += this.size(node.left)
-        count += this.size(node.right)
+    size(node = this.root, count = 0) {
+        if (node) {
+            count++
+            count += this.size(node.left)
+            count += this.size(node.right)
+        }
+        return count
     }
-    return count
-}
 
     /**
    * Calculates the height of the tree which is based on how many nodes from
@@ -269,36 +269,61 @@ size(node = this.root, count = 0) {
    * @param {Node} node The current node during traversal of this tree.
    * @returns {number} The height of the tree.
    */
-height(node = this.root, recursionCount = 0) {
-    // implimented
-    if (!node) {
-        return 0;
-    }
-    let maxDepth = 0;
-    let stack = [{ node: node, depth: 1 }];
-    
-    while (stack.length > 0) {
-        const { node, depth } = stack.pop();
-        maxDepth = Math.max(maxDepth, depth);
-        if (node.left) {
-            stack.push({ node: node.left, depth: depth + 1 });
+    height(node = this.root) {
+        if (!node)
+            return 0;
+        else {
+            /* compute the depth of each subtree */
+            let lDepth = this.height(node.left);
+            let rDepth = this.height(node.right);
+            /* use the larger one */
+            return lDepth > rDepth ? lDepth + 1 : rDepth + 1
         }
-        if (node.right) {
-            stack.push({ node: node.right, depth: depth + 1 });
+        /* 
+            if (!node) {
+                return 0;
+            }
+            let maxDepth = 0;
+            let stack = [{ node: node, depth: 1 }];
+        
+            while (stack.length > 0) {
+                const { node, depth } = stack.pop();
+                maxDepth = Math.max(maxDepth, depth);
+                if (node.left) {
+                    stack.push({ node: node.left, depth: depth + 1 });
+                }
+                if (node.right) {
+                    stack.push({ node: node.right, depth: depth + 1 });
+                }
+            }
+            return maxDepth;
+         */
+    }
+
+    /**
+     * Determines if this tree is a full tree. A full tree is a tree where every
+     * node has both a left and a right except for the last nodes (last nodes)
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} node The current node during traversal of this tree.
+     * @returns {boolean} Indicates if this tree is full.
+    */
+    isFull(node = this.root) {
+        if (!node) {
+            return false;
+        }
+        if (node.left != null && node.right == null || node.right != null && node.left == null) {
+            return false;
+        }
+        if (node.left && node.right) {
+            let lDepth = this.isFull(node.left)
+            let rDepth = this.isFull(node.right)
+            if (lDepth == false || rDepth == false) {
+                return false
+            }
+            return true
         }
     }
-    
-    return maxDepth;
-    // if (!node)
-    //     return 0;
-    // else {
-    //     /* compute the depth of each subtree */
-    //     let lDepth = this.height(node.left);
-    //     let rDepth = this.height(node.right);
-    //     /* use the larger one */
-    //     return lDepth > rDepth ? lDepth + 1 : rDepth + 1
-    // }
-}
 }
 
 let test = new BinarySearchTree();
@@ -307,20 +332,21 @@ let test = new BinarySearchTree();
 // console.log(test.max())
 
 test.insert(8)
-test.insert(1)
+// test.insert(1)
 test.insert(11)
 test.insert(9)
-test.insert(10)
+test.insert(12)
 test.insertRecursive(5)
 test.insertRecursive(4)
 test.insertRecursive(6)
-test.insertRecursive(3)
-test.insertRecursive(2)
-test.insertFromArray([44, 55, 22, 33, 66, 77, 88, 99])
+// test.insertRecursive(3)
+// test.insertRecursive(2)
+// test.insertFromArray([44, 55, 22, 33, 66, 77, 88, 99])
 test.print()
 console.log("=======================")
+console.log(test.isFull())
 // console.log(test.size())
-console.log(test.height())
+// console.log(test.height())
 // console.log("=====Pre-Order=====")
 // console.log(test.toArrPreorder())
 // console.log("=====In-Order=====")
@@ -332,6 +358,5 @@ console.log(test.height())
 // console.log(test.containsRecursive(2345))
 // console.log(test.containsRecursive(10))
 // console.log(test.contains(1000))
-
 // console.log(test.range())
 
