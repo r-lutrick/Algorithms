@@ -324,6 +324,42 @@ class BinarySearchTree {
             return true
         }
     }
+
+    /**
+ * Finds all the values that are repeated in the binary search tree
+ * - Time: O(?).
+ * - Space: O(?).
+ * @returns {Array<Number>} The values that are repeated in the binary search tree.
+ */
+    findDuplicates() {
+        // let output = []
+        // let outObj = {}
+        // let bstArr = this.toArrInorder()
+        // for (let i = 0; i < bstArr.length; i++) {
+        //     outObj.hasOwnProperty(bstArr[i]) ? outObj[bstArr[i]]++ : outObj[bstArr[i]] = 1;
+        // }
+
+        // for (const key in outObj) {
+        //     if (outObj[key] > 1) {
+        //         for (let i = 0; i < outObj[key]; i++) {
+        //             output.push(key)
+        //         }
+        //     }
+        // }
+        // return output
+
+        let output = []
+        let bstArr = this.toArrInorder()
+        for (let i = 0; i < bstArr.length - 1; i++) {
+            if (bstArr[i] == bstArr[i + 1]) {
+                output.push(bstArr[i])
+                output.push(bstArr[i + 1])
+                i++
+            }
+        }
+
+        return output
+    }
 }
 
 let test = new BinarySearchTree();
@@ -337,6 +373,10 @@ test.insert(11)
 test.insert(9)
 test.insert(12)
 test.insertRecursive(5)
+test.insertRecursive(5)
+test.insertRecursive(5)
+test.insertRecursive(4)
+test.insertRecursive(4)
 test.insertRecursive(4)
 test.insertRecursive(6)
 // test.insertRecursive(3)
@@ -344,7 +384,8 @@ test.insertRecursive(6)
 // test.insertFromArray([44, 55, 22, 33, 66, 77, 88, 99])
 test.print()
 console.log("=======================")
-console.log(test.isFull())
+console.log(test.findDuplicates())
+// console.log(test.isFull())
 // console.log(test.size())
 // console.log(test.height())
 // console.log("=====Pre-Order=====")
