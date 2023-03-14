@@ -47,18 +47,17 @@ let nums1 = [[1, 2], [2, 3], [4, 5]], nums2 = [[1, 4], [3, 2], [4, 1]] // [[1,6]
  * @param {number[][]} nums2
  * @return {number[][]}
  */
-var mergeArrays = function (nums1, nums2) {
+var mergeArrays = (a, b) => {
     let temp = {};
-    for (let i = 0; i < nums1.length; i++) {
-        temp[nums1[i][0]] = nums1[i][1];
+
+    for (let i = 0; i < a.length; i++) {
+        temp[a[i][0]] = a[i][1];
     }
-    for (let i = 0; i < nums2.length; i++) {
-        if (!(nums2[i][0] in temp)) {
-            temp[nums2[i][0]] = nums2[i][1];
-        } else {
-            temp[nums2[i][0]] += nums2[i][1];
-        }
+
+    for (let i = 0; i < b.length; i++) {
+        !(b[i][0] in temp) ? temp[b[i][0]] = b[i][1] : temp[b[i][0]] += b[i][1];
     }
+
     return Object.entries(temp)
 };
 
