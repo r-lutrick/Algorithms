@@ -15,7 +15,6 @@ class Queue {
         this.head = null;
         this.tail = null;
         this.size = 0;
-
     }
 
     /**
@@ -124,9 +123,81 @@ class Queue {
      */
     seed(vals) {
         for (let i = 0; i < vals.length; i++) {
-            
-            
+
+
         }
+    }
+
+    /**
+* Compares this queue to another given queue to see if they are equal.
+* Avoid indexing the queue items directly via bracket notation, use the
+* queue methods instead for practice.
+* Use no extra array or objects.
+* The queues should be returned to their original order when done.
+* - Time: O(?).
+* - Space: O(?).
+* @param {Queue} q2 The queue to be compared against this queue.
+* @returns {boolean} Whether all the items of the two queues are equal and
+*    in the same order.
+*/
+    compareQueues(q2) {
+        //check if they are not the same length, return a boolean
+        if (this.size != q2.size) {
+            return false;
+        }
+        //dequeue n return the order
+        while (this || q2) {
+            let check1 = this.dequeue();
+            let check2 = q2.dequeue();
+            // console.log("Check1 info:", check1);
+            // console.log("Check2 info:", check2);
+            if (check1.data != check2.data) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Determines if the queue is a palindrome (same items forward and backwards).
+     * Avoid indexing queue items directly via bracket notation, instead use the
+     * queue methods for practice.
+     * Use only 1 stack as additional storage, no other arrays or objects.
+     * The queue should be returned to its original order when done.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @returns {boolean}
+     */
+    isPalindrome() {
+        // first half / 2
+        // second half / 2
+        // race car
+        let arr = [];
+        for (let i = 0; i < this.size; i++) {
+            let something = this.dequeue();
+            arr.push(something.data)
+        }
+        console.log(arr)
+        // while (this) {
+        //     let val = this.dequeue();
+        //     console.log(val)
+        //     // arr.push(val.data)
+        // }
+        // console.log(arr)
     }
 }
 
+let test = new Queue;
+let test2 = new Queue;
+
+test.enqueue(1);
+test.enqueue(2);
+test.enqueue(3);
+test.enqueue(2);
+test.enqueue(2);
+// test2.enqueue(3);
+// test2.enqueue(2);
+// test2.enqueue(3);
+// test2.enqueue(5);
+// console.log(test.compareQueues(test2))
+console.log(test.isPalindrome(test))
