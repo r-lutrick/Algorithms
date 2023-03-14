@@ -30,13 +30,10 @@ function isPalindrome(str) {
   var n = str;
   var n1 = 0;
   while (n > 0) {
-    console.log("n is:",n);
-    console.log("n1 is:",n1);
     n1 = (n1 * 10) + (n % 10);
     n = Math.floor(n / 10);
   }
-  if (n1 === str) return true;
-  return false;
+  return n1 === str || false;
 
   /* VERSION 2 */
   // for (let i = 0; i < str.length / 2; i++) {
