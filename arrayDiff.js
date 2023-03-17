@@ -1,5 +1,6 @@
 /*
-Your goal in this kata is to implement a difference function, which subtracts one list from another and returns the result.
+Your goal in this kata is to implement a difference function, which subtracts one list 
+from another and returns the result.
 
 It should remove all values from list a, which are present in list b keeping their order.
 
@@ -9,10 +10,15 @@ If a value is present in b, all of its occurrences must be removed from the othe
 arrayDiff([1,2,2,2,3],[2]) == [1,3]
 */
 
-function arrayDiff(a, b) {
-    if (b.length == 0 || a.length == 0) { return a }
-
-    return a
+function arrayDiff(a = [], b = []) {
+    if (a.length < 1) return a
+    for (const item of b) {
+        var index = a.indexOf(item);
+        if (index !== -1) {
+            a.splice(index, 1);
+        }
+    }
+    return a;
 }
 
 console.log(arrayDiff([1, 2], [1])); // [2]
