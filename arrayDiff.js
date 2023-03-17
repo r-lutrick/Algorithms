@@ -10,15 +10,16 @@ If a value is present in b, all of its occurrences must be removed from the othe
 arrayDiff([1,2,2,2,3],[2]) == [1,3]
 */
 
-function arrayDiff(a = [], b = []) {
-    if (a.length < 1) return a
-    for (const item of b) {
-        var index = a.indexOf(item);
-        if (index !== -1) {
-            a.splice(index, 1);
-        }
-    }
-    return a;
+function arrayDiff(a, b) {
+    return a.filter(i => !b.includes(i))
+    // if (a.length < 1) return a
+    // for (const item of b) {
+    //     var index = a.indexOf(item);
+    //     if (index !== -1) {
+    //         a.splice(index, 1);
+    //     }
+    // }
+    // return a;
 }
 
 console.log(arrayDiff([1, 2], [1])); // [2]
