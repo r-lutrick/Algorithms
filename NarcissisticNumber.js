@@ -36,9 +36,7 @@ function narcissistic(value) {
         n1 += (n % 10) ** value.toString().split('').length;
         n = Math.floor(n / 10);
     }
-    console.log("n is:", value)
-    console.log("n1 is:", n1)
-    return value == n1
+    return value == n1;
 
     // console.log(value.toString().split(''))
     // let splitValue = value.toString().split('')
