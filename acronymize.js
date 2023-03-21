@@ -73,12 +73,14 @@ const expectedD = "GIT";
     @returns {string} The acronym.
  */
 function acronymize(str) {
-    var acronym = ""
-    var words = str.toUpperCase().split(' ') 
-    for (let i = 0; i < words.length; i++) {
-        acronym += words[i].charAt(0);
-    }
-    return acronym
+    return str.toUpperCase().split(' ').map(word => {return word.charAt(0)}).join('');
+
+    // var acronym = ""
+    // var words = str.toUpperCase().split(' ')
+    // for (let i = 0; i < words.length; i++) {
+    //     acronym += words[i].charAt(0);
+    // }
+    // return acronym
 }
 
 
