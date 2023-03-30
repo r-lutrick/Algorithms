@@ -57,7 +57,7 @@ nums2 = [0,0,1,1,1,2,2,3,3,4]
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
         """ Solution 2 (with new memory location) """
-        nums[:] = list(set(nums))
+        nums[:] = sorted(set(nums))
         k = len(nums)
         return k
 
