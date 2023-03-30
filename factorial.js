@@ -23,16 +23,17 @@ const expected2 = 720;
 const num3 = 0;
 const expected3 = 1;
 
-function factorial(n) {
+function factorial(n, sum = 1) {
     //Your code here
-    //Santize value?
+    //Sanitize value?
     n = Math.floor(n)
     //Base case?
     if (n <= 0) {
-        return 1
+        return sum
     }
+    sum *= n
     //Recursive return / call
-    return factorial(n - 1)
+    return factorial(n - 1, sum)
 }
 
 /*****************************************************************************/
@@ -41,12 +42,12 @@ console.log(factorial(num2)) // 720
 console.log(factorial(num3)) // 1
 
 /*
-  Sum To One Digit
-  Implement a function sumToOne(num)​ that,
-  given a number, sums that number’s digits
-  repeatedly until the sum is only one digit. Return
-  that final one digit result.
-  Tips:
+    Sum To One Digit
+    Implement a function sumToOne(num)​ that,
+    given a number, sums that number’s digits
+    repeatedly until the sum is only one digit. Return
+    that final one digit result.
+    Tips:
     to access digits from a number, need to convert it .toString() to access each digit via index
     parseInt(arg) returns arg parsed as an integer, or NaN if it couldn't be converted to an int
     isNaN(arg) used to check if something is NaN
@@ -82,8 +83,8 @@ function sumToOneDigit(num) {
     return sumToOneDigit(sum)
 }
 
-console.log(sumToOneDigit(numA)) // 5
-console.log(sumToOneDigit(numB)) // 1
-console.log(sumToOneDigit(numC)) // 7
-console.log(sumToOneDigit(numD)) // 9
+// console.log(sumToOneDigit(numA)) // 5
+// console.log(sumToOneDigit(numB)) // 1
+// console.log(sumToOneDigit(numC)) // 7
+// console.log(sumToOneDigit(numD)) // 9
 /*****************************************************************************/
